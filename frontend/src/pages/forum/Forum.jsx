@@ -16,14 +16,17 @@ import Navbar from "../../components/navbar/navbar.jsx";
 const Forum = () => {
   const [posts, setPosts] = useState([]);
   const fetchposts = async () => {
-    axios
-      .get("/api/posts")
-      .then((response) => {
-        setPosts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
+    try {
+      const response = await fetch("/api/posts");
+      if (response.ok) {
+        const data = await response.json();
+        setPosts(data);
+      } else {
+        console.error("Error fetching data: ", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
   };
 
   useEffect(() => {
