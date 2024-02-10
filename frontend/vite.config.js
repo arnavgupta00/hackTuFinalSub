@@ -5,7 +5,7 @@ import "dotenv/config";
 export default defineConfig({
   server: {
     proxy:{
-      '/api': process.env.REACT_APP_API_URL ||'http://localhost:5000'
+      '/api': "https://hacktu.onrender.com"
     }
   },
   plugins: [react()],
