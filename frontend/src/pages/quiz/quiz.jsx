@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import './quiz.css';
 import logo from "../../assets/Logo.png";
+import Navbar from '../../components/navbar/navbar';
 
 const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -68,6 +69,7 @@ const Quiz = () => {
   };
 
   return (
+    <>
     <div className="quiz-container">
 		<div className="head">
 		<img src={logo} alt="" />
@@ -110,7 +112,10 @@ const Quiz = () => {
 		  </div>
         </div>
       )}
+     
     </div>
+    <Navbar />
+    </>
   );
 };
 

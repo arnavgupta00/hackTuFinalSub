@@ -30,3 +30,6 @@ const chidSchema = new mongoose.Schema({
   },
   children: [chidSchema],
 });
+
+const userCollection = mongoose.model("Users", parentSchema);
+export default userCollection;

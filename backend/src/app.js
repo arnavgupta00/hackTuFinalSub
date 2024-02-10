@@ -4,12 +4,20 @@ const app = express();
 import Course from './models/course.model.js';
 import Quiz from './models/quiz.model.js';
 import Post from './models/post.model.js';
-app.use(express.json());
+import userCollection from './models/user.model.js';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import "dotenv/config";
 
-// Use cors middleware with specific origin
-app.use(cors({
-    origin: 'http://localhost:5173/ '
-}));
+const saltRound = 10;
+const JWTkey = process.env.SECRET_KEY;
+app.use(express.json());
+app.use(
+    cors({
+        origin: process.env.FRONTEND_URL||"http://localhost:5173",
+        credentials: true
+    })
+);
 
 app.get('/',(req,res)=>{
         res.send("hello world");
@@ -52,12 +60,12 @@ app.post("/api/register/:userEmail/:userPassword/:userName", async (req, res) =>
             console.error(err);
         } else {
             const userToAdd = userCollection({
-                userName: userName,
-                userEmail: userEmail,
-                userPassword: hash,
-                cart: [],
+                name: userName,
+                email: userEmail,
+                password: hash,
+                childern: [],
             });
-            const userCheck = await userCollection.findOne({ userEmail: userEmail })
+            const userCheck = await userCollection.findOne({ rmail: userEmail })
             if (userCheck) {
                 res.status(400).json({ message: 'User already exists' });
             } else {
@@ -66,8 +74,8 @@ app.post("/api/register/:userEmail/:userPassword/:userName", async (req, res) =>
 
                     const userPayload = {
                         _id: userToAdd._id,
-                        userName: userToAdd.userName,
-                        userEmail: userToAdd.userEmail,
+                        userName: userToAdd.name,
+                        userEmail: userToAdd.email,
                     }
 
                     const tokenJwtSigned = jwt.sign(userPayload, JWTkey);
@@ -89,15 +97,15 @@ app.post("/api/login/:userEmail/:userPassword", async (req, res) => {
     const userEmail = req.params.userEmail;
     const userPassword = req.params.userPassword;
 
-    const userFind = await userCollection.findOne({ userEmail: userEmail });
+    const userFind = await userCollection.findOne({ email: userEmail });
     if (userFind) {
-        bcrypt.compare(userPassword, userFind.userPassword, async (err, result) => {
+        bcrypt.compare(userPassword, userFind.password, async (err, result) => {
 
             if (result === true) {
                 const userPayload = {
                     _id: userFind._id,
-                    userName: userFind.userName,
-                    userEmail: userFind.userEmail,
+                    name: userFind.userName,
+                    email: userFind.userEmail,
                 }
                 const tokenJwtSigned = jwt.sign(userPayload, JWTkey);
 

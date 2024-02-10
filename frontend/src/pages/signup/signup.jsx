@@ -1,19 +1,18 @@
-
-
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import Logo from '../../assets/Logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import Logo from "../../assets/Logo.png";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   storeObject,
   exportObject,
-  AuthenticationFunk
+  AuthenticationFunk,
 } from "../../components/variableSet/variableSet.jsx";
 import "../login/login.css";
 
 export const SignUp = () => {
-  const url = "http://localhost:5000";
+  const url = "/api";
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     userName: "",
     userEmail: "",
@@ -26,13 +25,12 @@ export const SignUp = () => {
   };
 
   var signSubmit = async (event) => {
-    const navigate = useNavigate();
+    
     event.preventDefault();
 
     try {
       const response = await fetch(
-        url +
-          "/register/" +
+        "/api/register/" +
           formData.userEmail +
           "/" +
           formData.userPassword +
@@ -50,22 +48,28 @@ export const SignUp = () => {
         const result = await response.json();
         Cookies.set("token", result.message, { expires: 7 });
         storeObject(formData.userName, true);
-        console.log("success")
+        console.log("success");
         //await AuthenticationFunk();
         navigate("/home");
       } else {
         console.error("Failed to make request:", response.statusText);
         storeObject(formData.userName, false);
+       
+        //await AuthenticationFunk();
+        
       }
     } catch (error) {
       console.error("Failed to make request:", error);
       storeObject(formData.userName, false);
+       
+        //await AuthenticationFunk();
+        
     }
   };
 
-  useEffect(() => {}, []);
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     signSubmit(event);
   };
 
@@ -108,11 +112,11 @@ export const SignUp = () => {
             Sign Up
           </button>
           <div className="changeModes">
-          <p>Already have an account?<a href="/login">Login</a></p>
-          
-        </div>
+            <p>
+              Already have an account?<a href="/login">Login</a>
+            </p>
+          </div>
         </form>
-        
       </div>
     </>
   );

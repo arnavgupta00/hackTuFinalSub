@@ -26,10 +26,10 @@ const Navbar = () => {
             <div style={{position:"fixed" , top:"0%" , left:"0%"}}>
                 <div className="navbar">
                     <div className="navbarItems">
-                        <button className="navbarItem">Home</button>
-                        <button className="navbarItem">Forum</button>
-                        <button className="navbarItem">Quizzes</button>
-                        <button className="navbarItem">Profile</button>
+                        <button className="navbarItem" onClick={()=> navigate("/home")}>Home</button>
+                        <button className="navbarItem" onClick={()=> navigate("/forum")}>Forum</button>
+                        <button className="navbarItem" onClick={()=> navigate("/quiz")}>Quizzes</button>
+                        <button className="navbarItem" onClick={()=> navigate("/login")}>Profile</button>
                     </div>
                 </div>
             </div>

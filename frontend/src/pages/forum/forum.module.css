@@ -2,10 +2,16 @@
 	width: 90%;
 	margin: 0 auto;
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+	/* flex-direction: row; */
+	/* flex-direction: column; */
+	/* justify-content: space-between; */
 }
 
+.mainn{
+	display: flex;
+	flex-direction: column;
+	width: 75vw;
+}
 
 .image{
 	align-self: center;
@@ -80,5 +86,10 @@
 		font-weight: 500;
 
 		
+	}
+	.mainn{
+		display: flex;
+		flex-direction: column;
+		width: 100%;
 	}
 }

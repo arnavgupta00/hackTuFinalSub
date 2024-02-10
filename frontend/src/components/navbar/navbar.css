@@ -23,7 +23,7 @@
     height: 25px;
     width: 30%;
     padding: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
     border-color: transparent;
     text-align: center ;
     margin-right: 10px;
@@ -39,7 +39,7 @@
     opacity: 0.3;
 }
 .navbar{
-    width: 15vw;
+    width: 10vw;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -57,13 +57,15 @@
     padding-top: 150px;
     padding-bottom: 150px;
     background-color: rgb(251,245,236);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .navbarItem{
-    background-color: rgb(201,196,189);
-    border-radius: 25px;
-    height: 35px;
-    width: 150px;    
+    background-color: rgb(201,196,189);;
+    border-radius: 10px;
+    height: 100px;
+    width: 120px;    
     text-align: center;
     padding-top: 10px;
+    padding-bottom: 10px;
     border: solid 1px rgb(201,196,189);
 }

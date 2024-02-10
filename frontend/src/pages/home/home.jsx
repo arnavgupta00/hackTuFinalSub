@@ -10,7 +10,12 @@ import Navbar from "../../components/navbar/navbar.jsx";
 import Frame from "../../assets/Frame.png";
 import quiz1 from "../../assets/quiz1.png";
 import quiz2 from "../../assets/quiz2.png";
+import {Link , useNavigate} from "react-router-dom";
+
+
 export const Home = () => {
+  const isMobileView = window.innerWidth <= 768; 
+  const navigate = useNavigate();
   const [obj, setObj] = useState({});
   useEffect(() => {
     setObj(exportObject());
@@ -48,7 +53,7 @@ export const Home = () => {
               borderRadii="20px"
               marginTop="100px"
               height="250px"
-              width="95vw"
+              const width = {isMobileView ? "95vw" : "500px"}
               autoPlay="false"
               list={[
                 "https://i.imgur.com/HTTARQc.png",
@@ -64,34 +69,42 @@ export const Home = () => {
           <div className="quizzesItems">
             <div
               className="quizzesItem"
+              onClick={()=>navigate("/quiz")}
               style={{
                 backgroundImage: `url(${quiz1})`,
                 backgroundRepeat: "no-repeat",
-                backgroundSize: "contain",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
               }}
             ></div>
             <div
               className="quizzesItem"
+              onClick={()=>navigate("/quiz")}
               style={{
                 backgroundImage: `url(${quiz2})`,
                 backgroundRepeat: "no-repeat",
-                backgroundSize: "contain",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
               }}
             ></div>
             <div
               className="quizzesItem"
+              onClick={()=>navigate("/quiz")}
               style={{
                 backgroundImage: `url(${quiz1})`,
                 backgroundRepeat: "no-repeat",
-                backgroundSize: "contain",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
               }}
             ></div>
             <div
               className="quizzesItem"
+              onClick={()=>navigate("/quiz")}
               style={{
                 backgroundImage: `url(${quiz2})`,
                 backgroundRepeat: "no-repeat",
-                backgroundSize: "contain",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
               }}
             ></div>
           </div>

@@ -1,24 +1,21 @@
-
-
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import Logo from '../../assets/Logo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import Logo from "../../assets/Logo.png";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   storeObject,
   exportObject,
-  AuthenticationFunk
+  AuthenticationFunk,
 } from "../../components/variableSet/variableSet.jsx";
 
 import "./login.css";
-
+import Navbar from "../../components/navbar/navbar.jsx";
 
 export const Login = () => {
-
   const navigate = useNavigate();
 
-  const url = "http://localhost:5000";
+  const url = "/api";
 
   const [formData, setFormData] = useState({
     userName: "",
@@ -35,7 +32,7 @@ export const Login = () => {
 
     try {
       const response = await fetch(
-        url + "/login/" + formData.userEmail + "/" + formData.userPassword,
+        "/api/login/" + formData.userEmail + "/" + formData.userPassword,
         {
           method: "POST",
           headers: {
@@ -49,17 +46,23 @@ export const Login = () => {
         const result = await response.json();
         Cookies.set("token", result.message, { expires: 7 });
         storeObject(formData.userName, true);
-        console.log("success")
+        console.log("success");
         //await AuthenticationFunk();
         navigate("/home");
       } else {
         console.error("Failed to make request:", response.statusText);
         storeObject(formData.userName, false);
+       
+        //await AuthenticationFunk();
+        navigate("/home")
       }
     } catch (error) {
       console.error("Failed to make request:", error);
-      storeObject(formData.userName, false);  
+      storeObject(formData.userName, false);
+        
+      navigate("/home")
     }
+   
   };
 
   useEffect(() => {}, []);
@@ -107,8 +110,11 @@ export const Login = () => {
             Login
           </button>
           <div className="changeModes">
-          <p>Don't have an account?<a href="/signup">Sign Up</a></p>
+            <p>
+              Don't have an account?<a href="/signup">Sign Up</a>
+            </p>
           </div>
+          <Navbar />
         </form>
       </div>
     </>
