@@ -17,7 +17,9 @@ const Forum = () => {
   const [posts, setPosts] = useState([]);
   const fetchposts = async () => {
     try {
-      const response = await fetch("/api/posts");
+      const response = await fetch("/api/posts", {
+        method: "GET",
+      });
       if (response.ok) {
         const data = await response.json();
         setPosts(data);
